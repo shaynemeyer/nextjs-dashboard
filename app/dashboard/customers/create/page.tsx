@@ -1,6 +1,7 @@
 import React from 'react';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { Metadata } from 'next';
+import Form from '@/app/ui/customers/create-form';
 
 export const metadata: Metadata = {
   title: 'Create Customer',
@@ -19,7 +20,7 @@ function CreateCustomerPage() {
           },
         ]}
       />
-      {/* <Form customers={customers} /> */}
+      <Form />
     </main>
   );
 }

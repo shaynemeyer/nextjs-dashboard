@@ -40,6 +40,9 @@ export default async function CustomersTable({
                   <th scope="col" className="px-4 py-5 font-medium">
                     Total Paid
                   </th>
+                  <th scope="col" className="relative py-3 pl-6 pr-3">
+                    <span className="sr-only">Edit</span>
+                  </th>
                 </tr>
               </thead>
 

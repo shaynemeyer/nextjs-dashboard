@@ -6,8 +6,10 @@ This application is based on the NextJS Dashboard Starter Application.
 
 ## Todos
 
-- [ ] Add List of Customers
+- [x] Add List of Customers
+- [x] Add Search Customers
+- [ ] Select a default customer image
 - [ ] Add Add Customers
 - [ ] Add Edit Customers
+- [ ] Upload Customer Photo
 - [ ] Add Delete Customers
-- [ ] Add Search Customers
