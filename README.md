@@ -13,3 +13,9 @@ This application is based on the NextJS Dashboard Starter Application.
 - [ ] Add Edit Customers
 - [ ] Upload Customer Photo
 - [ ] Add Delete Customers
+
+---
+
+## Resources
+
+- [Hero Icons](https://heroicons.dev/)
