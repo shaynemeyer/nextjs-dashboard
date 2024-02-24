@@ -1,6 +1,5 @@
 'use client';
 
-import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   CheckIcon,
@@ -8,7 +7,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import { createInvoice } from '@/app/lib/actions/invoices';
+import { createCustomer } from '@/app/lib/actions/customers';
 import { useFormState } from 'react-dom';
 import Image from 'next/image';
 
@@ -20,7 +19,7 @@ export default function Form({
   profileImages: string[];
 }) {
   const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createInvoice, initialState);
+  const [state, dispatch] = useFormState(createCustomer, initialState);
   const [selectedImage, setSelectedImage] = useState('');
 
   return (
@@ -28,39 +27,54 @@ export default function Form({
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
-          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+          <label htmlFor="Name" className="mb-2 block text-sm font-medium">
             Enter customer name
           </label>
           <div className="relative">
             <input
               required
-              id="name"
-              name="name"
+              id="Name"
+              name="Name"
               placeholder="Enter customer name"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
             />
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
-          <div id="customer-error" aria-live="polite" aria-atomic="true"></div>
+          <div id="customer-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.Name &&
+              state.errors.Name.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
         </div>
 
         {/* Customer Email Address */}
         <div className="mb-4">
-          <label htmlFor="email" className="mb-2 block text-sm font-medium">
+          <label htmlFor="Email" className="mb-2 block text-sm font-medium">
             Enter an email address
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
                 required
-                id="email"
-                name="email"
+                id="Email"
+                name="Email"
                 type="email"
                 placeholder="Enter an email address"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
+          </div>
+          <div id="customer-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.Email &&
+              state.errors.Email.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
           </div>
         </div>
 
@@ -88,7 +102,7 @@ export default function Form({
                   <option value="" disabled>
                     Select an image
                   </option>
-                  {/* get a list of images @ /customers */}
+
                   {profileImages.map((pic) => (
                     <option key={pic} value={pic}>
                       {pic}
@@ -119,8 +133,8 @@ export default function Form({
           </div>
 
           <div id="customer-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.customerId &&
-              state.errors.customerId.map((error: string) => (
+            {state.errors?.Image_url &&
+              state.errors.Image_url.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
