@@ -10,10 +10,18 @@ import {
 import { Button } from '@/app/ui/button';
 import { createInvoice } from '@/app/lib/actions/invoices';
 import { useFormState } from 'react-dom';
+import Image from 'next/image';
 
-export default function Form() {
+import { useState } from 'react';
+
+export default function Form({
+  profileImages = [],
+}: {
+  profileImages: string[];
+}) {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(createInvoice, initialState);
+  const [selectedImage, setSelectedImage] = useState('');
 
   return (
     <form action={dispatch}>
@@ -57,7 +65,68 @@ export default function Form() {
         </div>
 
         {/* Customer Image */}
-        {/* todo: figure out customer image */}
+        <div className="mb-4 w-full">
+          <div className="flex w-full flex-row gap-2">
+            <div>
+              <label
+                htmlFor="Image_url"
+                className="mb-2 block text-sm font-medium"
+              >
+                Choose Image
+              </label>
+              <div className="relative">
+                <select
+                  id="Image_url"
+                  name="Image_url"
+                  className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                  defaultValue=""
+                  aria-describedby="customer-error"
+                  onChange={(event) => {
+                    setSelectedImage(event.target.value);
+                  }}
+                >
+                  <option value="" disabled>
+                    Select an image
+                  </option>
+                  {/* get a list of images @ /customers */}
+                  {profileImages.map((pic) => (
+                    <option key={pic} value={pic}>
+                      {pic}
+                    </option>
+                  ))}
+                </select>
+                {selectedImage ? (
+                  <Image
+                    src={selectedImage}
+                    className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 rounded-full"
+                    width={28}
+                    height={28}
+                    alt={`profile picture`}
+                  />
+                ) : (
+                  <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+                )}
+              </div>
+            </div>
+            <div className="self-end">
+              <Link
+                href="upload"
+                className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+              >
+                Upload Profile Pic
+              </Link>
+            </div>
+          </div>
+
+          <div id="customer-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.customerId &&
+              state.errors.customerId.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
