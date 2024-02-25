@@ -2,12 +2,22 @@ import React from 'react';
 import Breadcrumbs from '@/app/ui/shared/breadcrumbs';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { fetchCustomerById } from '@/app/lib/data';
+import Form from '@/app/ui/customers/edit-form';
+import { publicImageFiles } from '@/app/lib/files';
 
 export const metadata: Metadata = {
   title: 'Edit Customer',
 };
-function EditCustomerPage({ params }: { params: { id: string } }) {
+async function EditCustomerPage({ params }: { params: { id: string } }) {
   const id = params.id;
+
+  const customer = await fetchCustomerById(id);
+  if (!customer) {
+    notFound();
+  }
+
+  const profileImages = publicImageFiles('customers');
 
   return (
     <main>
@@ -21,7 +31,7 @@ function EditCustomerPage({ params }: { params: { id: string } }) {
           },
         ]}
       />
-      {/* <Form invoice={invoice} customers={customers} /> */}
+      <Form profileImages={profileImages} customer={customer} />
     </main>
   );
 }

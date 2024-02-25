@@ -5,7 +5,13 @@ import { writeFile } from 'fs/promises';
 import { join } from 'path';
 import { Button } from '@/app/ui/button';
 
-function UploadProfilePicture() {
+function UploadProfilePicture({
+  searchParams,
+}: {
+  searchParams?: {
+    returnUrl?: string;
+  };
+}) {
   const upload = async (data: FormData) => {
     'use server';
 
@@ -23,8 +29,13 @@ function UploadProfilePicture() {
     await writeFile(path, buffer);
     console.log(`open ${path} to see the uploaded file`);
 
-    redirect('/dashboard/customers/create');
+    redirect(
+      searchParams?.returnUrl
+        ? searchParams.returnUrl
+        : '/dashboard/customers/',
+    );
   };
+
   return (
     <main>
       <Breadcrumbs

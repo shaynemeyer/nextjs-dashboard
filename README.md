@@ -16,7 +16,7 @@ This application is based on the NextJS Dashboard Starter Application.
 - [x] Add Pagination for Invoices
 - [x] Add Skeleton for Customers
 - [x] Add Pagination for Customers
-- [ ] Fix style issue on edit button column for customers
+- [x] Fix style issue on edit button column for customers
 - [ ] Add Edit Customer
 - [ ] Add Delete Customer
 - [ ] Add Mobile Views for customers uis

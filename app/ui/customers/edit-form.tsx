@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { CustomerForm } from '@/app/lib/definitions';
 import {
   CheckIcon,
   AtSymbolIcon,
@@ -9,15 +10,16 @@ import {
 import { Button } from '@/app/ui/button';
 import { createCustomer } from '@/app/lib/actions/customers';
 import { useFormState } from 'react-dom';
-import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Form({
   profileImages = [],
+  customer,
 }: {
   profileImages: string[];
+  customer: CustomerForm;
 }) {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(createCustomer, initialState);
@@ -38,6 +40,7 @@ export default function Form({
               required
               id="Name"
               name="Name"
+              defaultValue={customer.name}
               placeholder="Enter customer name"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
             />
@@ -65,6 +68,7 @@ export default function Form({
                 id="Email"
                 name="Email"
                 type="email"
+                defaultValue={customer.email}
                 placeholder="Enter an email address"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
@@ -96,7 +100,7 @@ export default function Form({
                   id="Image_url"
                   name="Image_url"
                   className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                  defaultValue=""
+                  defaultValue={customer.image_url}
                   aria-describedby="customer-error"
                   onChange={(event) => {
                     setSelectedImage(event.target.value);
@@ -112,9 +116,9 @@ export default function Form({
                     </option>
                   ))}
                 </select>
-                {selectedImage ? (
+                {customer.image_url ? (
                   <Image
-                    src={selectedImage}
+                    src={customer.image_url}
                     className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 rounded-full"
                     width={28}
                     height={28}
@@ -127,7 +131,7 @@ export default function Form({
             </div>
             <div className="self-end">
               <Link
-                href={`upload?returnUrl=${pathname}`}
+                href={`/dashboard/customers/upload?returnUrl=${pathname}`}
                 className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
               >
                 Upload Profile Pic
@@ -152,7 +156,7 @@ export default function Form({
         >
           Cancel
         </Link>
-        <Button type="submit">Create Customer</Button>
+        <Button type="submit">Edit Customer</Button>
       </div>
     </form>
   );
