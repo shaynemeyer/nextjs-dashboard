@@ -8,7 +8,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import { createCustomer } from '@/app/lib/actions/customers';
+import { createCustomer, updateCustomer } from '@/app/lib/actions/customers';
 import { useFormState } from 'react-dom';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -21,9 +21,11 @@ export default function Form({
   profileImages: string[];
   customer: CustomerForm;
 }) {
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createCustomer, initialState);
   const [selectedImage, setSelectedImage] = useState('');
+
+  const initialState = { message: null, errors: {} };
+  const updateCustomerWithId = updateCustomer.bind(null, customer.id);
+  const [state, dispatch] = useFormState(updateCustomerWithId, initialState);
 
   const pathname = usePathname();
 
@@ -32,14 +34,14 @@ export default function Form({
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
-          <label htmlFor="Name" className="mb-2 block text-sm font-medium">
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Enter customer name
           </label>
           <div className="relative">
             <input
               required
-              id="Name"
-              name="Name"
+              id="name"
+              name="name"
               defaultValue={customer.name}
               placeholder="Enter customer name"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -47,8 +49,8 @@ export default function Form({
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
           <div id="customer-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.Name &&
-              state.errors.Name.map((error: string) => (
+            {state.errors?.name &&
+              state.errors.name.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
@@ -58,15 +60,15 @@ export default function Form({
 
         {/* Customer Email Address */}
         <div className="mb-4">
-          <label htmlFor="Email" className="mb-2 block text-sm font-medium">
+          <label htmlFor="email" className="mb-2 block text-sm font-medium">
             Enter an email address
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
                 required
-                id="Email"
-                name="Email"
+                id="email"
+                name="email"
                 type="email"
                 defaultValue={customer.email}
                 placeholder="Enter an email address"
@@ -76,8 +78,8 @@ export default function Form({
             </div>
           </div>
           <div id="customer-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.Email &&
-              state.errors.Email.map((error: string) => (
+            {state.errors?.email &&
+              state.errors.email.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
@@ -90,15 +92,15 @@ export default function Form({
           <div className="flex w-full flex-row gap-2">
             <div>
               <label
-                htmlFor="Image_url"
+                htmlFor="image_url"
                 className="mb-2 block text-sm font-medium"
               >
                 Choose Image
               </label>
               <div className="relative">
                 <select
-                  id="Image_url"
-                  name="Image_url"
+                  id="image_url"
+                  name="image_url"
                   className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                   defaultValue={customer.image_url}
                   aria-describedby="customer-error"
@@ -140,8 +142,8 @@ export default function Form({
           </div>
 
           <div id="customer-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.Image_url &&
-              state.errors.Image_url.map((error: string) => (
+            {state.errors?.image_url &&
+              state.errors.image_url.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
