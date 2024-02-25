@@ -1,5 +1,5 @@
 import React from 'react';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/app/ui/shared/breadcrumbs';
 import { Metadata } from 'next';
 import Form from '@/app/ui/customers/create-form';
 import { publicImageFiles } from '@/app/lib/files';

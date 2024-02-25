@@ -1,4 +1,4 @@
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/app/ui/shared/breadcrumbs';
 import React from 'react';
 import { redirect } from 'next/navigation';
 import { writeFile } from 'fs/promises';
@@ -51,7 +51,7 @@ function UploadProfilePicture() {
         </div>
         <div className="mt-6 flex justify-end gap-4">
           <Button type="submit">Upload</Button>
-        </div>{' '}
+        </div>
       </form>
     </main>
   );

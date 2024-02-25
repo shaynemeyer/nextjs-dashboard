@@ -1,5 +1,5 @@
 import React from 'react';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/app/ui/shared/breadcrumbs';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
